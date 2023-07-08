@@ -19,16 +19,12 @@ if (!empty($_SERVER['HTTP_CLIENT_IP'])) {
 } else {
     $ip = $_SERVER['REMOTE_ADDR'];
 }
-// Lea bot id = K4oeEl4Bld0B
-// Conversation id = 4openZN3Pe7A
 
-
-
-$content = '{"content": "' . $prompt . ' Also, in curly brackets, return the language name (only) the response is in", "conversation_id":"4openZN3Pe7A"}';
+$content = '{"content": "' . $prompt . '":"' . $CFG->conversation_id . '"}';
 $message = $WS->send_curl_request(
     'POST',
     $headers,
-    'https://getcody.ai/api/v1/messages',
+    $CFG->api_url . '/messages',
     $content
 );
 
@@ -51,35 +47,12 @@ $DB->insert('logs', $log_data);
 $content = $message->data->content;
 $content = str_replace('\/', '/', $message->data->content);
 
-// Because the response is returning the langugae it is written in, I want to remove that from the content
-// Split the content into an array of sentences based on period
-$sentences = explode(".", $content);
-
-$length = count($sentences);
-
-$last_sentence = $sentences[$length - 2];
-
-// Remove the last sentence from the content
-$content = str_replace($last_sentence, '', $content);
-// Convert last sentence to lower case
-$last_sentence = strtolower($last_sentence);
-// Replace all  "français" with "french"
-$language = str_replace('français', 'french', $last_sentence);
-
-
 // get url from content
 preg_match('/http(.*)\/\/\S+/', $content, $match);
 if (isset($match[0])) {
     $url = $match[0];
 // Replace content with link
     $content = str_replace($url,'<a href="'.$url.'" target="_blank">'.$url.'</a>', $content);
-}
-
-//echo $check_language->data->content;
-if (strpos($language, 'french') === false ) {
-    $content .= "<br><br>You can find more information at <a href=\"https://www.glendon.yorku.ca\" target=\"_blank\">Glendon</a>";
-} else {
-    $content .= "<br><br>Vous pouvez trouver plus d'information au site web de <a href=\"https://www.glendon.yorku.ca\" target=\"_blank\">Glendon</a>";
 }
 
 // Add content back to message object

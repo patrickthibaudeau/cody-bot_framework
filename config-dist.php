@@ -29,6 +29,9 @@ $CFG->wwwroot = 'https://your.domain.url'; // no trailing slash
 $WS = new webservice();
 //API Key
 $CFG->api_key = '';
+$CFG->bot_id = '';
+$CFG->conversation_id = '';
+$CFG->api_url = '';
 
 // Initialize Mustache Templating and create VIEW global object
 Mustache_Autoloader::register();
