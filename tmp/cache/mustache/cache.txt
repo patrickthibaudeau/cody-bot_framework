@@ -1,0 +1,1 @@
+Caching for templates is captured in this folder
