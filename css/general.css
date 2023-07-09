@@ -4,8 +4,9 @@
     border: 0;
     margin: 5px 0;
 }
-body{
+html, body{
     background:#eee;
+    height: 100vh;
 }
 
 .chat-welcome {
@@ -117,10 +118,6 @@ body{
     position: relative;
     font-weight: 600;
     color: #ffffff;
-}
-
-.content{
-    margin-top:40px;
 }
 
 

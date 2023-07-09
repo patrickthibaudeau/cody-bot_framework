@@ -2,6 +2,7 @@ $(document).ready(function () {
     $('.bot').off();
     $('.bot').on('click', function () {
         let id = $(this).data('id');
+        $('#bot_id').text(id);
         $.ajax({
             url: "conversations.php?id=" + id,
             type: "GET",

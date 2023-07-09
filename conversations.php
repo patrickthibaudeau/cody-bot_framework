@@ -27,6 +27,7 @@ foreach ($conversations->data as $conversation) {
 }
 
 $data = [
+    'bot_id' => $bot_id,
     'conversations' => $bot_conversations,
 ];
 

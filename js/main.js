@@ -46,6 +46,7 @@ $(document).ready(function () {
                 console.log(response.data.content);
                 $('#repsonse-' + randomElemNumber).html('');
                 let typing = $('#repsonse-' + randomElemNumber);
+                $('.chat-list .out .chat-message').css('width', '85%');
                 typing.typer([response.data.content],{
                     delay: 1,
                     duration: 10,

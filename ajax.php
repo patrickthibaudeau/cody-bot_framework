@@ -47,16 +47,25 @@ $DB->insert('logs', $log_data);
 $content = $message->data->content;
 $content = str_replace('\/', '/', $message->data->content);
 
-// get url from content
-preg_match('/http(.*)\/\/\S+/', $content, $match);
-if (isset($match[0])) {
-    $url = $match[0];
-// Replace content with link
-    $content = str_replace($url,'<a href="'.$url.'" target="_blank">'.$url.'</a>', $content);
-}
+$content = nl2br( htmlspecialchars( $content));
+$content = make_link($content);
+$content = make_email($content);
 
 // Add content back to message object
 $message->data->content = $content;
 echo json_encode($message);
 
+// take a string and turn any valid URLs into HTML links
+function make_link($input) {
+    $url_pattern = '<https?:\/\/(www\.)?[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_\+.~#?&//=]*)>';
+    $str = preg_replace($url_pattern, '<a href="$0" target="_blank">$0</a> ', $input);
+    // Remove duplicate links
+    return preg_replace('/\[.*\]/', '', $str);
+}
 
+function make_email($input){
+    //Detect and create email
+    $mail_pattern = "/([A-z0-9\._-]+\@[A-z0-9_-]+\.)([A-z0-9\_\-\.]{1,}[A-z])/";
+    return preg_replace($mail_pattern, '<a href="mailto:$1$2">$1$2</a>', $input);
+
+}
