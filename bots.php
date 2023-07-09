@@ -17,6 +17,11 @@
 include_once('config.php');
 
 global $CFG, $WS, $VIEW;
+
+if (!isset($_SESSION['CODYBOT_USER'])) {
+    header('Location: '. $CFG->wwwroot . '/login/');
+}
+
 $page_number = '';
 if (isset($_GET['page'])) {
     $page_number = $_GET['page'];
