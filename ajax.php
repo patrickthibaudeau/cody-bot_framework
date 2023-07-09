@@ -9,7 +9,7 @@ global $CFG, $WS, $VIEW, $DB;
 
 // Get
 $prompt = $_REQUEST['prompt'];
-$headers = $WS->get_headers('POST', $CFG->api_key);
+$headers = $WS->get_headers($CFG->api_key,'POST');
 
 // Get client IP
 if (!empty($_SERVER['HTTP_CLIENT_IP'])) {
@@ -20,7 +20,7 @@ if (!empty($_SERVER['HTTP_CLIENT_IP'])) {
     $ip = $_SERVER['REMOTE_ADDR'];
 }
 
-$content = '{"content": "' . $prompt . '":"' . $CFG->conversation_id . '"}';
+$content = '{"content": "' . $prompt . '","conversation_id":"' . $CFG->conversation_id . '"}';
 $message = $WS->send_curl_request(
     'POST',
     $headers,

@@ -1,0 +1,74 @@
+{{> header}}
+<div class="container content">
+    <div class="row">
+        <div class="col-md-12 col-sm-12 col-12">
+            <div class="card">
+                <h5 class="card-header">{{title}}</h5>
+                <div class="chat-body">
+                    <table class="table table-striped">
+                        <thead>
+                        <tr>
+                            <th>BOT</th>
+                            <th>DESCRIPTION</th>
+                            <th>MODEL</th>
+                            <th>ID</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {{#bots}}
+                            <tr class="bot" data-id="{{id}}" style="cursor: pointer;">
+                                <td>{{name}}</td>
+                                <td>{{description}}</td>
+                                <td>{{model}}</td>
+                                <td>{{id}}</td>
+                            </tr>
+                        {{/bots}}
+                        </tbody>
+                    </table>
+                    <div class="float-right mr-5">
+                        <nav aria-label="Page navigation">
+                            <ul class="pagination">
+                                {{#previous}}
+                                    <li class="page-item"><a class="page-link"
+                                                             href="{{config.wwwroot}}/bots.php?page={{previous}}
+                                        ">Previous</a></li>
+                                {{/previous}}
+                                {{#pages}}
+                                    <li class="page-item"><a class="page-link"
+                                                             href="{{config.wwwroot}}/bots.php?page={{number}}
+                                        ">{{number}}</a></li>
+                                {{/pages}}
+                                {{#next}}
+                                    <li class="page-item"><a class="page-link"
+                                                             href="{{config.wwwroot}}/bots.php?page={{next}}">Next</a>
+                                    </li>
+                                {{/next}}
+                            </ul>
+                        </nav>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Modal -->
+<div class="modal fade" id="conversationModal" tabindex="-1" aria-labelledby="conversationModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="conversationModalLabel">Conversations</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div id="available-conversations"></div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+{{> footer}}

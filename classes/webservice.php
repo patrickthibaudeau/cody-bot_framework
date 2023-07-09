@@ -37,7 +37,7 @@ namespace yorku;
      * @param $token
      * @return string[]
      */
-    public function get_headers($method = 'GET', $token) {
+    public function get_headers($token, $method = 'GET' ) {
         if ($method == 'GET') {
             $headers = array(
                 "Accept: application/json",
