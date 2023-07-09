@@ -1,0 +1,1 @@
+If you want to add images, add them to this folder and then reference them in the mustache files.

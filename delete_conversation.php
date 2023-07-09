@@ -17,38 +17,15 @@
 include_once('config.php');
 
 global $CFG, $WS, $VIEW;
-if (isset($_GET['id'])) {
-    $bot_id = $_GET['id'];
-} else {
-    $bot_id = $_GET['bot_id'];
-}
+$conversation_id = $_GET['id'];
+$bot_id = $_GET['bot_id'];
 
 $headers = $WS->get_headers($CFG->api_key);
-// Get Bots
-$conversations = $WS->send_curl_request(
-    'GET',
+
+//Delete conversation
+$delete_conversation = $WS->send_curl_request(
+    'DELETE',
     $headers,
-    $CFG->api_url . '/conversations/'
+    $CFG->api_url . '/conversations/' . $conversation_id
 );
-
-$conversations = json_decode($conversations);
-
-$bot_conversations = [];
-foreach ($conversations->data as $conversation) {
-    if ($conversation->bot_id == $bot_id) {
-        $bot_conversations[] = $conversation;
-    }
-}
-
-$data = [
-    'bot_id' => $bot_id,
-    'conversations' => $bot_conversations,
-];
-
-$conversations = $VIEW->loadTemplate('conversations');
-echo $conversations->render($data);
-
-//print_object($spaces);
-
-
 

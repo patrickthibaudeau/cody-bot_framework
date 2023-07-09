@@ -14,41 +14,29 @@
 // You should have received a copy of the GNU General Public License
 // along with Cody AI Bot Framework.  If not, see <http://www.gnu.org/licenses/>.
 
-include_once('config.php');
 
-global $CFG, $WS, $VIEW;
-if (isset($_GET['id'])) {
-    $bot_id = $_GET['id'];
+global $CFG;
+/**
+ * Debugging is available based on the config.php file.
+ */
+if ($CFG->debugging === true) {
+    ini_set('display_errors', 1);
+    ini_set('display_startup_errors', 1);
+    error_reporting(E_ALL);
 } else {
-    $bot_id = $_GET['bot_id'];
+    ini_set('display_errors', 0);
+    ini_set('display_startup_errors', 0);
 }
 
-$headers = $WS->get_headers($CFG->api_key);
-// Get Bots
-$conversations = $WS->send_curl_request(
-    'GET',
-    $headers,
-    $CFG->api_url . '/conversations/'
-);
-
-$conversations = json_decode($conversations);
-
-$bot_conversations = [];
-foreach ($conversations->data as $conversation) {
-    if ($conversation->bot_id == $bot_id) {
-        $bot_conversations[] = $conversation;
-    }
+/**
+ * Print object returns any object or array in a readable format.
+ * @param $object
+ * @return void
+ */
+function print_object($object)
+{
+    echo '<pre>';
+    print_r($object);
+    echo '</pre>';
 }
-
-$data = [
-    'bot_id' => $bot_id,
-    'conversations' => $bot_conversations,
-];
-
-$conversations = $VIEW->loadTemplate('conversations');
-echo $conversations->render($data);
-
-//print_object($spaces);
-
-
 

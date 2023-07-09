@@ -1,4 +1,19 @@
 <?php
+// This file is part of Cody AI Bot Framework - https://github.com/patrickthibaudeau/cody-bot_framework
+//
+// Cody AI Bot Framework is free software: you can redistribute it and/or modify
+// it under the terms of the GNU General Public License as published by
+// the Free Software Foundation, either version 3 of the License, or
+// (at your option) any later version.
+//
+// Cody AI Bot Framework is distributed in the hope that it will be useful,
+// but WITHOUT ANY WARRANTY; without even the implied warranty of
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+// GNU General Public License for more details.
+//
+// You should have received a copy of the GNU General Public License
+// along with Cody AI Bot Framework.  If not, see <http://www.gnu.org/licenses/>.
+
 require_once((__DIR__) . '/classes/db.class.php');
 require ((__DIR__) . '/classes/Mustache/Autoloader.php');
 require ((__DIR__) . '/classes/webservice.php');
@@ -24,6 +39,7 @@ $DB = new MeekroDB($CFG->dbhost, $CFG->dbuser, $CFG->dbpass, $CFG->dbname);
 
 // Web host
 $CFG->wwwroot = 'https://your.domain.url'; // no trailing slash
+$CFG->dataroot ='/path/to/data/folder'; // Keep folder outside of web root. Must be writeable by www-data
 
 // New webservice
 $WS = new webservice();
@@ -31,14 +47,14 @@ $WS = new webservice();
 $CFG->api_key = '';
 $CFG->bot_id = '';
 $CFG->conversation_id = '';
-$CFG->api_url = '';
+$CFG->api_url = 'https://getcody.ai/api/v1'; //No trailing slash
 
 // Initialize Mustache Templating and create VIEW global object
 Mustache_Autoloader::register();
 
 $VIEW = new Mustache_Engine(array(
     'template_class_prefix' => '__CODYTemplates_',
-    'cache' => dirname(__FILE__) . '/tmp/cache/mustache',
+    'cache' => $CFG->dataroot . '/cache/mustache',
     'cache_file_mode' => 0666, // Please, configure your umask instead of doing this :)
     'cache_lambda_templates' => false,
     'loader' => new Mustache_Loader_FilesystemLoader(dirname(__FILE__) . '/views'),
@@ -52,13 +68,5 @@ $VIEW = new Mustache_Engine(array(
     'strict_callables' => true,
     'pragmas' => [Mustache_Engine::PRAGMA_FILTERS],
 ));
-/**
- * @param $object
- * @return void
- */
-function print_object($object)
-{
-    echo '<pre>';
-    print_r($object);
-    echo '</pre>';
-}
+
+require ((__DIR__) . '/lib.php');

@@ -43,7 +43,8 @@ $(document).ready(function () {
             type: "POST",
             dataType: "json",
             success: function(response) {
-                console.log(response.data.content);
+                // Reset prompt
+                $('#prompt').val('');
                 $('#repsonse-' + randomElemNumber).html('');
                 let typing = $('#repsonse-' + randomElemNumber);
                 $('.chat-list .out .chat-message').css('width', '85%');
