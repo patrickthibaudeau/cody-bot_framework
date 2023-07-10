@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: db
--- Generation Time: Jul 09, 2023 at 06:50 PM
+-- Generation Time: Jul 10, 2023 at 01:24 PM
 -- Server version: 8.0.30
 -- PHP Version: 8.2.4
 
@@ -20,6 +20,21 @@ SET time_zone = "+00:00";
 --
 -- Database: `cody`
 --
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `admin_logs`
+--
+
+CREATE TABLE `admin_logs` (
+  `id` int NOT NULL,
+  `userid` int NOT NULL,
+  `action` varchar(10) NOT NULL,
+  `description` longtext NOT NULL,
+  `ip` varchar(16) NOT NULL,
+  `timecreated` int NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
 
 -- --------------------------------------------------------
 
@@ -47,13 +62,13 @@ CREATE TABLE `logs` (
 
 CREATE TABLE `user` (
   `id` int NOT NULL,
-  `username` varchar(50) COLLATE utf8mb4_general_ci NOT NULL,
-  `password` varchar(255) COLLATE utf8mb4_general_ci NOT NULL,
-  `firstname` varchar(255) COLLATE utf8mb4_general_ci NOT NULL,
-  `lastname` varchar(255) COLLATE utf8mb4_general_ci NOT NULL,
-  `preferredfirstname` varchar(255) COLLATE utf8mb4_general_ci NOT NULL,
-  `preferredlastname` varchar(255) COLLATE utf8mb4_general_ci NOT NULL,
-  `email` varchar(255) COLLATE utf8mb4_general_ci NOT NULL
+  `username` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
+  `password` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
+  `firstname` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
+  `lastname` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
+  `preferredfirstname` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
+  `preferredlastname` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
+  `email` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
@@ -66,6 +81,12 @@ INSERT INTO `user` (`id`, `username`, `password`, `firstname`, `lastname`, `pref
 --
 -- Indexes for dumped tables
 --
+
+--
+-- Indexes for table `admin_logs`
+--
+ALTER TABLE `admin_logs`
+  ADD PRIMARY KEY (`id`);
 
 --
 -- Indexes for table `logs`
@@ -82,6 +103,12 @@ ALTER TABLE `user`
 --
 -- AUTO_INCREMENT for dumped tables
 --
+
+--
+-- AUTO_INCREMENT for table `admin_logs`
+--
+ALTER TABLE `admin_logs`
+  MODIFY `id` int NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `logs`
