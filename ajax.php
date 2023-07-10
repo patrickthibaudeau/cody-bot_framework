@@ -57,6 +57,7 @@ $DB->insert('logs', $log_data);
 $content = $message->data->content;
 $content = str_replace('\/', '/', $message->data->content);
 $content = preg_replace('/according to the knowledge base/', '', $content);
+$content = preg_replace('/According to the knowledge base/', '', $content);
 $content = preg_replace('/According to the information provided in the knowledge base, /', '', $content);
 $content = preg_replace('/Based on the information provided in the knowledge base, /', '', $content);
 $content = ucfirst($content);
