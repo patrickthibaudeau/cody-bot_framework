@@ -56,9 +56,9 @@ $DB->insert('logs', $log_data);
 // Clean up content string
 $content = $message->data->content;
 $content = str_replace('\/', '/', $message->data->content);
-$content = str_replace('according to the knowledge base', '', $content);
-$content = str_replace('According to the information provided in the knowledge base, ', '', $content);
-$content = str_replace('Based on the information provided in the knowledge base ', '', $content);
+$content = preg_replace('/according to the knowledge base/', '', $content);
+$content = preg_replace('/According to the information provided in the knowledge base, /', '', $content);
+$content = preg_replace('/Based on the information provided in the knowledge base, /', '', $content);
 
 $content = nl2br( htmlspecialchars( $content));
 $content = make_link($content);
