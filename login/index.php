@@ -14,21 +14,24 @@
 // You should have received a copy of the GNU General Public License
 // along with Cody AI Bot Framework.  If not, see <http://www.gnu.org/licenses/>.
 
-include_once('../config.php');
+require_once('../config.php');
 
 global $CFG, $WS, $VIEW, $DB;
-
+// If the session is not set, show the login page
 if (!isset($_SESSION['CODYBOT_USER'])) {
+    // If the form has been submitted, check the username and password
     if (isset($_POST['username']) && isset($_POST['password'])) {
         $username = $_POST['username'];
         $password = md5($_POST['password']);
         // Get user
         $sql = "SELECT * FROM user WHERE username = %s_username AND password = %s_password";
         $user = $DB->query($sql, ['username' => $username, 'password' => $password]);
+        // If a user is found, set the session and redirect to bots.php
         if (isset($user[0])) {
             $_SESSION['CODYBOT_USER'] = session_id();
             redirect($CFG->wwwroot . '/bots.php');
         } else {
+            // If no user is found, show the login page with an error
             $data = [
                 'error' => 'Invalid username or password'
             ];
@@ -36,11 +39,13 @@ if (!isset($_SESSION['CODYBOT_USER'])) {
             echo $page->render($data);
         }
     } else {
+        // Show the login page
         $data = [];
         $page = $VIEW->loadTemplate('login');
         echo $page->render($data);
     }
 } else {
+    // User already logged in, redirect to bots.php
     header('Location: '. $CFG->wwwroot . '/bots.php');
 }
 

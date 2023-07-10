@@ -14,14 +14,16 @@
 // You should have received a copy of the GNU General Public License
 // along with Cody AI Bot Framework.  If not, see <http://www.gnu.org/licenses/>.
 
-include_once('config.php');
+require_once('config.php');
 
 global $CFG, $WS, $VIEW;
 
+// If the session is not set, redirect to login.php
 if (!isset($_SESSION['CODYBOT_USER'])) {
     header('Location: '. $CFG->wwwroot . '/login/');
 }
 
+// What page are we on?
 $page_number = '';
 if (isset($_GET['page'])) {
     $page_number = $_GET['page'];
@@ -44,12 +46,13 @@ $bots = json_decode($bots);
 
 $bot_array = $bots->data;
 $pagination = $bots->meta->pagination;
-//print_object($pagination);
+
+// Get all pages for pagination
 $pages = [];
 for ($i = 0; $i < $pagination->total_pages; $i++) {
     $pages[$i]['number'] = $i + 1;
 }
-
+// Set previous and next page
 if ($pagination->current_page == 1) {
     $previous = false;
 } else {

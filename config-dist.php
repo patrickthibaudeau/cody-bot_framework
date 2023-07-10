@@ -18,7 +18,7 @@ require_once((__DIR__) . '/classes/db.class.php');
 require ((__DIR__) . '/classes/Mustache/Autoloader.php');
 require ((__DIR__) . '/classes/webservice.php');
 
-use yorku\webservice;
+use cody_bot\webservice;
 
 unset($CFG);
 global $CFG, $WS, $VIEW, $DB;
@@ -49,8 +49,15 @@ $CFG->bot_id = '';
 $CFG->conversation_id = '';
 $CFG->api_url = 'https://getcody.ai/api/v1'; //No trailing slash
 
+$CFG->debugging = false;
+
 // Initialize Mustache Templating and create VIEW global object
 Mustache_Autoloader::register();
+
+// If the mustache cache folder doesn't exist, create it
+if (!is_dir($CFG->dataroot . '/tmp/cache/mustache')) {
+    mkdir($CFG->dataroot . '/tmp/cache/mustache', 0777, true);
+}
 
 $VIEW = new Mustache_Engine(array(
     'template_class_prefix' => '__CODYTemplates_',
@@ -69,4 +76,4 @@ $VIEW = new Mustache_Engine(array(
     'pragmas' => [Mustache_Engine::PRAGMA_FILTERS],
 ));
 
-require ((__DIR__) . '/lib.php');
+require_once ((__DIR__) . '/lib.php');

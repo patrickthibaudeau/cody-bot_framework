@@ -40,7 +40,11 @@ function print_object($object)
     echo '</pre>';
 }
 
-
+/**
+ * Redirect to a new page.
+ * @param $url
+ * @return void
+ */
 function redirect($url)
 {
     $string = '<script type="text/javascript">';
