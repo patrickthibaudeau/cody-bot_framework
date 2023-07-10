@@ -65,6 +65,11 @@ $VIEW = new Mustache_Engine(array(
     'cache_file_mode' => 0666, // Please, configure your umask instead of doing this :)
     'cache_lambda_templates' => false,
     'loader' => new Mustache_Loader_FilesystemLoader(dirname(__FILE__) . '/views'),
+    'helpers' => array('i18n' => function ($text) {
+        // do something translatey here...
+    },
+        'config' => $CFG
+    ),
     'escape' => function ($value) {
         if (!is_array($value)) {
             return htmlspecialchars($value, ENT_COMPAT, 'UTF-8');
