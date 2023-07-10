@@ -1,0 +1,45 @@
+{{> header}}
+{{> navbar}}
+<div class="container content">
+    <div class="row mt-4">
+        <div class="col-md-12 col-sm-12 col-12">
+            <div class="card">
+                <h5 class="card-header">LOGS</h5>
+                <div class="chat-body">
+                    <table class="table table-striped">
+                        <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>REQUEST ID</th>
+                            <th>PROMPT</th>
+                            <th>ANSWER</th>
+                            <th>MACHINE</th>
+                            <th>FAILED RESPONDING</th>
+                            <th>CONVERSATION ID</th>
+                            <th>IP</th>
+                            <th>DATE</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {{#logs}}
+                            <tr class="bot" data-id="{{id}}" style="cursor: pointer;">
+                                <td>{{id}}</td>
+                                <td>{{request_id}}</td>
+                                <td>{{prompt}}</td>
+                                <td>{{{content}}}</td>
+                                <td>{{machine}}</td>
+                                <td>{{failed_responding}}</td>
+                                <td>{{conversation_id}}</td>
+                                <td>{{ip}}</td>
+                                <td>{{created_at}}</td>
+                            </tr>
+                        {{/logs}}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{{> footer}}

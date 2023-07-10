@@ -72,7 +72,7 @@ $data = [
     'previous' => $previous,
     'next' => $next,
 ];
-print_object($data);
+//print_object($data);
 
 $bot_page = $VIEW->loadTemplate('get_bots_conversations');
 echo $bot_page->render($data);
