@@ -16,7 +16,7 @@
 
 require_once('../config.php');
 
-global $CFG, $WS, $VIEW, $DB;
+global $CFG, $WS, $VIEW, $DB, $USER;
 // If the session is not set, show the login page
 if (!isset($_SESSION['CODYBOT_USER'])) {
     // If the form has been submitted, check the username and password
@@ -29,6 +29,7 @@ if (!isset($_SESSION['CODYBOT_USER'])) {
         // If a user is found, set the session and redirect to bots.php
         if (isset($user[0])) {
             $_SESSION['CODYBOT_USER'] = session_id();
+            $USER = (object)$user[0];
             redirect($CFG->wwwroot . '/bots.php');
         } else {
             // If no user is found, show the login page with an error

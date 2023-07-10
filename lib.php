@@ -53,3 +53,11 @@ function redirect($url)
 
     echo $string;
 }
+
+function requires_login()
+{
+    global $CFG;
+    if (!isset($_SESSION['CODYBOT_USER'])) {
+        redirect($CFG->wwwroot . '/login/');
+    }
+}

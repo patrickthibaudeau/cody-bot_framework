@@ -16,12 +16,10 @@
 
 require_once('config.php');
 
-global $CFG, $WS, $VIEW;
+global $CFG, $WS, $VIEW, $USER;
 
 // If the session is not set, redirect to login.php
-if (!isset($_SESSION['CODYBOT_USER'])) {
-    header('Location: '. $CFG->wwwroot . '/login/');
-}
+requires_login();
 
 // What page are we on?
 $page_number = '';
@@ -67,13 +65,14 @@ if ($pagination->current_page == $pagination->total_pages) {
 
 
 $data = [
+    'user' => $USER,
     'title' => 'Bots',
     'bots' => $bot_array,
     'pages'=> $pages,
     'previous' => $previous,
     'next' => $next,
 ];
-//print_object($data);
+print_object($data);
 
 $bot_page = $VIEW->loadTemplate('get_bots_conversations');
 echo $bot_page->render($data);

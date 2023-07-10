@@ -17,8 +17,10 @@
 include_once('config.php');
 
 global $CFG, $WS, $VIEW;
+
+requires_login();
+
 $conversation_id = $_GET['id'];
-$bot_id = $_GET['bot_id'];
 
 $headers = $WS->get_headers($CFG->api_key);
 

@@ -19,8 +19,10 @@ include_once('config.php');
 global $CFG, $WS, $VIEW;
 if (isset($_GET['id'])) {
     $bot_id = $_GET['id'];
-} else {
+} else if (isset($_GET['bot_id'])) {
     $bot_id = $_GET['bot_id'];
+} else {
+    redirect($CFG->wwwroot . '/bots.php');
 }
 
 $headers = $WS->get_headers($CFG->api_key);
