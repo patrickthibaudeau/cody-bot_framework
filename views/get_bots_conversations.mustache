@@ -1,20 +1,7 @@
 {{> header}}
-<nav class="navbar navbar-expand-lg navbar-light bg-light">
-    <a class="navbar-brand" href="#">CODY AI</a>
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-    </button>
-
-    <div class="collapse navbar-collapse" id="navbarSupportedContent">
-        <ul class="navbar-nav mr-auto">
-        </ul>
-        <form class="form-inline my-2 my-lg-0">
-            <a href="{{config.wwwroot}}/login/logout.php" class="btn btn-outline-primary">Logout</a>
-        </form>
-    </div>
-</nav>
+{{> navbar}}
 <div class="container content">
-    <div class="row">
+    <div class="row mt-4">
         <div class="col-md-12 col-sm-12 col-12">
             <div class="card">
                 <h5 class="card-header">{{title}}</h5>
